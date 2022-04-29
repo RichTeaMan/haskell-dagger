@@ -23,3 +23,9 @@ jobs:
           cmds: |
             project update
             do build
+      - name: Archive build artifacts
+        uses: actions/upload-artifact@v3
+        with:
+          name: build
+          path: |
+            build
