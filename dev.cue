@@ -34,17 +34,16 @@ dagger.#Plan & {
         build: {
             run: bash.#Run & {
                 input:   _haskell.output
-                workdir: "/src"
                 script: contents: #"""
+                    cabal build
                     mkdir build
-                    ghc helloworld.hs -o build/helloworld
-                    ./build/helloworld
+                    find . -name "helloworld" -type f -exec cp {} build/. \;
                     """#
             }
 
             contents: core.#Subdir & {
                 input: run.output.rootfs
-                path:  "/src/build"
+                path:  "/build"
             }
         }
     }
